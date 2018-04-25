@@ -1,0 +1,12 @@
+{
+  "name": "pr-stats",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+      "pr" : "node index.js"
+  },
+  "dependencies": {
+    "node-fetch": "^2.1.2"
+  }
+}
