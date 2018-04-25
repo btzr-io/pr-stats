@@ -6,7 +6,7 @@ const api = (data) => `https://api.github.com/${data}`;
 function diff_hour(dt2, dt1)
  {
 
-  const diff =(dt2.getTime() - dt1.getTime()) / 1000;
+  let diff =(dt2.getTime() - dt1.getTime()) / 1000;
   diff /= (60 * 60);
   return Math.abs(Math.round(diff));
 
@@ -15,8 +15,8 @@ function diff_hour(dt2, dt1)
  function diff_minute(dt2, dt1)
   {
 
-   const diff =(dt2.getTime() - dt1.getTime()) / 1000;
-   diff /= 60;
+   let diff =(dt2.getTime() - dt1.getTime()) / 1000;
+   diff /= (60);
    return Math.abs(Math.round(diff));
 
   }
@@ -62,19 +62,19 @@ function diff_hour(dt2, dt1)
                 console.log("Open:", first.toLocaleDateString('en', options));
                 console.log('---');
             }
-
-            /*
-            if(index === Object.entries(dates).length - 1) {
-                console.log("Closed:", last.toLocaleDateString('en', options));
-                console.log('---');
-            }
-            */
         });
-        const  firstCommitPeerDay = 0.25;
+        const  firstCommitPeerDay = process.argv[3] || 0;
         const hoursTotal = hoursCount + (daysCount * firstCommitPeerDay)
         console.log('Total Days:', daysCount  + ' days');
-        console.log('Total Hours:', hoursTotal + ' hours (approx)');
-        console.log('Total Minutes:', minuteCount + (daysCount * firstCommitPeerDay * 60) + ' minutes (approx)');
+
+        if(firstCommitPeerDay > 0) {
+            console.log('Total Hours:', hoursTotal + ' hours (approx)');
+            console.log('Total Minutes:', minuteCount + " minutes",  minuteCount + (daysCount * firstCommitPeerDay * 60) + ' minutes (approx)');
+        } else {
+            console.log('Total Hours:', hoursTotal + ' hours');
+            console.log('Total Minutes:', minuteCount + " minutes");
+        }
+
     };
 
 
