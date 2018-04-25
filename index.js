@@ -12,6 +12,15 @@ function diff_hour(dt2, dt1)
 
  }
 
+ function diff_minute(dt2, dt1)
+  {
+
+   var diff =(dt2.getTime() - dt1.getTime()) / 1000;
+   diff /= 60;
+   return Math.abs(Math.round(diff));
+
+  }
+
     const handleCommits = (commits) => {
         const dates = {};
         commits.map( (item, index) => {
@@ -29,13 +38,15 @@ function diff_hour(dt2, dt1)
             dates[`date-${month}-${day}`].push(date);
         });
 
-        let daysCount = 0;
+        let daysCount = 1;
         let hoursCount = 0;
+        let minuteCount = 0;
 
         Object.entries(dates).map(([key, value], index)=> {
             const first = value[0];
             const last = value[value.length - 1];
             hoursCount += diff_hour(last, first);
+            minuteCount += diff_minute(last, first);
             daysCount += index;
 
             const options = {
@@ -59,9 +70,11 @@ function diff_hour(dt2, dt1)
             }
             */
         });
-        const  firstCommitPeerDay = 0;
+        const  firstCommitPeerDay = 0.25;
+        const hoursTotal = hoursCount + (daysCount * firstCommitPeerDay)
         console.log('Total Days:', daysCount  + ' days');
-        console.log('Total Hours:', hoursCount + (daysCount * firstCommitPeerDay) + ' hours (approx)');
+        console.log('Total Hours:', hoursTotal + ' hours (approx)');
+        console.log('Total Minutes:', minuteCount + (daysCount * firstCommitPeerDay * 60) + ' minutes (approx)');
     };
 
 
