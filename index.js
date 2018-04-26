@@ -3,26 +3,27 @@ const fetch = require('node-fetch');
 const api = (data) => `https://api.github.com/${data}`;
 
 
-function diff_hour(dt2, dt1)
- {
+// Handler function for date differece
+const diff = (dt2, dt1) => (dt2.getTime() - dt1.getTime()) / 1000;
 
-  let diff =(dt2.getTime() - dt1.getTime()) / 1000;
-  diff /= (60 * 60);
-  return Math.abs(Math.round(diff));
-
+// Handler function for hours differece
+const diff_hour(dt2, dt1) => {
+  const  hours = diff(dt2, dt1) / (60 * 60);
+  return Math.abs(Math.round(hours));
  }
 
- function diff_minute(dt2, dt1)
-  {
-
-   let diff =(dt2.getTime() - dt1.getTime()) / 1000;
-   diff /= (60);
-   return Math.abs(Math.round(diff));
-
+// Handler function for minutes difference
+ const diff_minute(dt2, dt1) => {
+   const  minutes = diff(dt2, dt1) / 60;
+   return Math.abs(Math.round(minutes));
   }
 
     const handleCommits = (commits) => {
+
+        // Store date of each commits
         const dates = {};
+
+        // Split by days
         commits.map( (item, index) => {
             const _date = item.commit.committer.date;
             const date = new Date(_date);
@@ -30,6 +31,8 @@ function diff_hour(dt2, dt1)
             const day = date.getDate();
             dates[`date-${month}-${day}`] = [];
         });
+
+        // Assign by day
         commits.map( (item, index) => {
             const _date = item.commit.committer.date;
             const date = new Date(_date);
@@ -38,6 +41,7 @@ function diff_hour(dt2, dt1)
             dates[`date-${month}-${day}`].push(date);
         });
 
+        // Count vars
         let daysCount = 1;
         let hoursCount = 0;
         let minuteCount = 0;
@@ -49,6 +53,7 @@ function diff_hour(dt2, dt1)
             minuteCount += diff_minute(last, first);
             daysCount += index;
 
+            // Format date
             const options = {
                 weekday: 'long',
                 year: 'numeric',
@@ -58,19 +63,29 @@ function diff_hour(dt2, dt1)
                 minute: '2-digit'
             };
 
+            // Show first commit date
             if(index===0) {
                 console.log("Open:", first.toLocaleDateString('en', options));
                 console.log('---');
             }
         });
+
+
+        // Add initial commit time (approximation)
         const  firstCommitPeerDay = process.argv[3] || 0;
+
+        // Get total hours + approximation
         const hoursTotal = hoursCount + (daysCount * firstCommitPeerDay)
+
+        // Total days spemd
         console.log('Total Days:', daysCount  + ' days');
 
         if(firstCommitPeerDay > 0) {
+            // Approximation time spend
             console.log('Total Hours:', hoursTotal + ' hours (approx)');
             console.log('Total Minutes:', minuteCount + " minutes",  minuteCount + (daysCount * firstCommitPeerDay * 60) + ' minutes (approx)');
         } else {
+            // Time difference: ignores initial commit time
             console.log('Total Hours:', hoursTotal + ' hours');
             console.log('Total Minutes:', minuteCount + " minutes");
         }
@@ -78,10 +93,12 @@ function diff_hour(dt2, dt1)
     };
 
 
+    // Get Pull request (id)
     const id = process.argv[2];
+
+    // Github api (fetch commits)
     fetch(api(`repos/lbryio/lbry-app/pulls/${id}/commits`))
     	.then(res => {
-
             return res.json()
         })
     	.then(handleCommits);
