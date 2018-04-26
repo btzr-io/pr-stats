@@ -2,10 +2,10 @@ const fetch = require('node-fetch')
 
 const api = data => `https://api.github.com/${data}`
 
-// Handler function for date differece
+// Handler function for date difference
 const diff = (dt2, dt1) => (dt2.getTime() - dt1.getTime()) / 1000
 
-// Handler function for hours differece
+// Handler function for hours difference
 const diff_hour = (dt2, dt1) => {
   const hours = diff(dt2, dt1) / (60 * 60)
   return Math.abs(Math.round(hours * 100) / 100)
