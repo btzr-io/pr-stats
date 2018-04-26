@@ -73,8 +73,10 @@ const handleCommits = (commits, fixTime) => {
   // Get total hours + approximation
   const hoursTotal = hoursCount + daysCount * firstCommitPeerDay
 
+  // Section title
   console.log(' Time tracker', '\n ------------')
-  // Total days spemd
+
+  // Total days spend
   console.log(' Total Days:', daysCount + ' days')
 
   if (firstCommitPeerDay > 0) {
@@ -90,6 +92,7 @@ const handleCommits = (commits, fixTime) => {
     console.log(' Total Minutes:', minuteCount + ' minutes')
   }
 
+  // Section title
   console.log('\n Commit stats', '\n -------------')
 
   // Total commits
