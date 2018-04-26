@@ -95,8 +95,10 @@ const diff_hour = (dt2, dt1) => {
         // Total commits
         console.log(' Total Commits:', commits.length  + ' commits');
 
+        const avgCommits = Math.round(hoursTotal / commits.length);
+
         // Average commits per hour
-        console.log(' Commits per hour:', Math.round(hoursTotal / commits.length) + ' (average)');
+        console.log(' Commits per hour:', + (hoursTotal <= 1  ? commits.length : avgCommits) + ' (average)');
 
         console.log('\n');
 
