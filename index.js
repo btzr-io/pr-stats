@@ -90,6 +90,9 @@ const diff_hour = (dt2, dt1) => {
             console.log('Total Minutes:', minuteCount + " minutes");
         }
 
+        // Total commits
+        console.log('Total Commits:', commits.length  + ' commits');
+
     };
 
 
