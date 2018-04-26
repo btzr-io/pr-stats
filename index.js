@@ -18,7 +18,7 @@ const diff_hour = (dt2, dt1) => {
    return Math.abs(Math.round(minutes));
   }
 
-    const handleCommits = (commits) => {
+    const handleCommits = (commits, fixTime) => {
 
         // Store date of each commits
         const dates = {};
@@ -104,13 +104,16 @@ const diff_hour = (dt2, dt1) => {
 
     };
 
+    function getStats(id, fixedTime) {
+        // Github api (fetch commits)
+        fetch(api(`repos/lbryio/lbry-app/pulls/${id}/commits`))
+        	.then(res => {
+                return res.json()
+            })
+        	.then( data => handleCommits(data, fixedTime));
+    }
 
-    // Get Pull request (id)
-    const id = process.argv[2];
+    // run
+    getStats(process.argv[2], process.argv[3]);
 
-    // Github api (fetch commits)
-    fetch(api(`repos/lbryio/lbry-app/pulls/${id}/commits`))
-    	.then(res => {
-            return res.json()
-        })
-    	.then( data => handleCommits(data, process.argv[2]));
+    module.export = getStats;
