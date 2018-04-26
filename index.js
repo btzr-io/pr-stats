@@ -71,7 +71,7 @@ const diff_hour = (dt2, dt1) => {
 
 
         // Add initial commit time (approximation)
-        const  firstCommitPeerDay = process.argv[3] || 0;
+        const  firstCommitPeerDay = fixTime || 0;
 
         // Get total hours + approximation
         const hoursTotal = hoursCount + (daysCount * firstCommitPeerDay)
@@ -113,4 +113,4 @@ const diff_hour = (dt2, dt1) => {
     	.then(res => {
             return res.json()
         })
-    	.then(handleCommits);
+    	.then( data => handleCommits(data, process.argv[2]));
