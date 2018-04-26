@@ -4,9 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-      "pr" : "node index.js"
+    "pr": "node index.js",
+    "format": "pretty-quick"
   },
   "dependencies": {
     "node-fetch": "^2.1.2"
+  },
+  "devDependencies": {
+    "prettier": "^1.12.1",
+    "pretty-quick": "^1.4.1"
   }
 }
