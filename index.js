@@ -9,7 +9,7 @@ const diff = (dt2, dt1) => (dt2.getTime() - dt1.getTime()) / 1000;
 // Handler function for hours differece
 const diff_hour = (dt2, dt1) => {
   const  hours = diff(dt2, dt1) / (60 * 60);
-  return Math.abs(Math.round(hours));
+  return Math.abs(Math.round(hours * 100) / 100);
  }
 
 // Handler function for minutes difference
