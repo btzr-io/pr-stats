@@ -7,13 +7,13 @@ const api = (data) => `https://api.github.com/${data}`;
 const diff = (dt2, dt1) => (dt2.getTime() - dt1.getTime()) / 1000;
 
 // Handler function for hours differece
-const diff_hour(dt2, dt1) => {
+const diff_hour = (dt2, dt1) => {
   const  hours = diff(dt2, dt1) / (60 * 60);
   return Math.abs(Math.round(hours));
  }
 
 // Handler function for minutes difference
- const diff_minute(dt2, dt1) => {
+ const diff_minute = (dt2, dt1) => {
    const  minutes = diff(dt2, dt1) / 60;
    return Math.abs(Math.round(minutes));
   }
@@ -83,7 +83,7 @@ const diff_hour(dt2, dt1) => {
         if(firstCommitPeerDay > 0) {
             // Approximation time spend
             console.log('Total Hours:', hoursTotal + ' hours (approx)');
-            console.log('Total Minutes:', minuteCount + " minutes",  minuteCount + (daysCount * firstCommitPeerDay * 60) + ' minutes (approx)');
+            console.log('Total Minutes:', minuteCount + (daysCount * firstCommitPeerDay * 60) + ' minutes (approx)');
         } else {
             // Time difference: ignores initial commit time
             console.log('Total Hours:', hoursTotal + ' hours');
