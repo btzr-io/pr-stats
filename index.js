@@ -65,8 +65,7 @@ const diff_hour = (dt2, dt1) => {
 
             // Show first commit date
             if(index===0) {
-                console.log("Open:", first.toLocaleDateString('en', options));
-                console.log('---');
+                console.log("\n Open:", first.toLocaleDateString('en', options), '\n');
             }
         });
 
@@ -77,21 +76,29 @@ const diff_hour = (dt2, dt1) => {
         // Get total hours + approximation
         const hoursTotal = hoursCount + (daysCount * firstCommitPeerDay)
 
+        console.log(' Time tracker', '\n ------------');
         // Total days spemd
-        console.log('Total Days:', daysCount  + ' days');
+        console.log(' Total Days:', daysCount  + ' days');
 
         if(firstCommitPeerDay > 0) {
             // Approximation time spend
-            console.log('Total Hours:', hoursTotal + ' hours (approx)');
-            console.log('Total Minutes:', minuteCount + (daysCount * firstCommitPeerDay * 60) + ' minutes (approx)');
+            console.log(' Total Hours:', hoursTotal + ' hours (approx)');
+            console.log(' Total Minutes:', minuteCount + (daysCount * firstCommitPeerDay * 60) + ' minutes (approx)');
         } else {
             // Time difference: ignores initial commit time
-            console.log('Total Hours:', hoursTotal + ' hours');
-            console.log('Total Minutes:', minuteCount + " minutes");
+            console.log(' Total Hours:', hoursTotal + ' hours');
+            console.log(' Total Minutes:', minuteCount + " minutes");
         }
 
+        console.log('\n Commit stats', '\n -------------');
+
         // Total commits
-        console.log('Total Commits:', commits.length  + ' commits');
+        console.log(' Total Commits:', commits.length  + ' commits');
+
+        // Average commits per hour
+        console.log(' Commits per hour:', Math.round(hoursTotal / commits.length) + ' (average)');
+
+        console.log('\n');
 
     };
 
